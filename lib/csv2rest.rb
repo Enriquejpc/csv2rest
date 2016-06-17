@@ -1,5 +1,7 @@
 require "csv2rest/version"
 require 'csvlint/csvw/csv2json/csv2json'
+require 'thor'
+require 'json'
 
 module Csv2rest
   def self.generate csv, schema

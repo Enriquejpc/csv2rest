@@ -11,6 +11,7 @@
     {
       "url": "tomatoes.csv",
       "tableSchema": {
+        "aboutUrl": "tomatoes/{name}",
         "columns": [
           {
             "titles": "common name",
@@ -27,14 +28,19 @@
             "titles": "type",
             "name": "tomato_type",
             "schema:description": "Growing habit of tomato variety"
+          },
+          {
+            "virtual": true,
+            "propertyUrl": "rdf:type",
+            "valueUrl": "tomatoes"
           }
-        ],
-        "primaryKey": "common_name"
+        ]
       }
     },
     {
       "url": "tomato-types.csv",
       "tableSchema": {
+        "aboutUrl": "tomato-types/{type}",
         "columns": [
           {
             "titles": "type",
@@ -51,6 +57,11 @@
             "titles": "description",
             "schema:description": "Description of type",
             "datatype": "string"
+          },
+          {
+            "virtual": true,
+            "propertyUrl": "rdf:type",
+            "valueUrl": "tomato-types"
           }
         ]
       }

@@ -1,5 +1,9 @@
 {
-  "@context": "http://www.w3.org/ns/csvw",
+  "@context": [ "http://www.w3.org/ns/csvw",
+    {
+      "@base": ""
+    }
+  ],
   "schema:name": "Tomato types",
   "schema:description": "Data about tomato types",
   "schema:creator": {

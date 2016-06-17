@@ -1,0 +1,4 @@
+#!/usr/bin/env ruby
+
+require 'csv2rest/cli'
+Csv2rest::CLI.start
