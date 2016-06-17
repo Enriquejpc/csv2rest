@@ -14,7 +14,7 @@ module Csv2rest
                   aliases: '-o',
                   description: 'Where to output files'
     def generate json
-      files = Csv2rest.generate Csvlint::Schema.load_from_json(json), base_url: "file:"+File.dirname(json)
+      files = Csv2rest.generate Csvlint::Schema.load_from_json(json), base_url: "file:#{File.dirname(json)}"
       Csv2rest.write_json files, options
     end
 

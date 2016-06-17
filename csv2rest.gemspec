@@ -4,27 +4,27 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'csv2rest/version'
 
 Gem::Specification.new do |spec|
-  spec.name          = "csv2rest"
+  spec.name          = 'csv2rest'
   spec.version       = Csv2rest::VERSION
-  spec.authors       = ["pikesley", "floppy"]
-  spec.email         = ["ops@theodi.org"]
+  spec.authors       = ['pikesley', 'floppy']
+  spec.email         = ['ops@theodi.org']
 
   spec.summary       = %q{Turn CSVs into JSON}
   spec.description   = %q{Turn CSVs into JSON}
-  spec.homepage      = "http://github.com/theodi/csv2rest"
-  spec.license       = "MIT"
+  spec.homepage      = 'http://github.com/theodi/csv2rest'
+  spec.license       = 'MIT'
 
   spec.files         = `git ls-files -z`.split("\x0").reject { |f| f.match(%r{^(test|spec|features)/}) }
-  spec.bindir        = "exe"
+  spec.bindir        = 'exe'
   spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
-  spec.require_paths = ["lib"]
+  spec.require_paths = ['lib']
 
-  spec.add_dependency "csv2json"
-  spec.add_dependency "thor", "~> 0.19"
+  spec.add_dependency 'csv2json'
+  spec.add_dependency 'thor', '~> 0.19'
 
-  spec.add_development_dependency "bundler", "~> 1.7"
-  spec.add_development_dependency "rake", "~> 10.0"
-  spec.add_development_dependency "rspec", "~> 3.0"
-  spec.add_development_dependency "pry"
+  spec.add_development_dependency 'bundler', '~> 1.7'
+  spec.add_development_dependency 'rake', '~> 10.0'
+  spec.add_development_dependency 'rspec', '~> 3.0'
+  spec.add_development_dependency 'pry'
 
 end
