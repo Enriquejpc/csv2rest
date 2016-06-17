@@ -12,26 +12,28 @@ module Csv2rest
     h = {}
 
     # Create individual resources
-    json["tables"][0]["row"].each do |object|
-      obj = object["describes"][0]
-      path = obj["@id"].gsub("#{base_path}/","") # NASTINESS - replace with base URL somehow
-      resource_name = obj["@type"].gsub("#{base_path}/","") # NASTINESS - replace with base URL somehow
-      # Dump metadata we don't want in the JSON representation of the object
-      obj.delete("@id")
-      obj.delete("@type")
-      # Store object
-      h[path] = obj
-      # Add to object list
-      h["#{resource_name}"] ||= []
-      h["#{resource_name}"] << {
-        "url" => path
-      }
-      # Add resource to root
-      h[""] ||= []
-      h[""] << {
-        "resource" => resource_name,
-        "url" => "#{resource_name}"
-      }
+    json["tables"].each do |table|
+      table["row"].each do |object|
+        obj = object["describes"][0]
+        path = obj["@id"].gsub("#{base_path}/","") # NASTINESS - replace with base URL somehow
+        resource_name = obj["@type"].gsub("#{base_path}/","") # NASTINESS - replace with base URL somehow
+        # Dump metadata we don't want in the JSON representation of the object
+        obj.delete("@id")
+        obj.delete("@type")
+        # Store object
+        h[path] = obj
+        # Add to object list
+        h["#{resource_name}"] ||= []
+        h["#{resource_name}"] << {
+          "url" => path
+        }
+        # Add resource to root
+        h[""] ||= []
+        h[""] << {
+          "resource" => resource_name,
+          "url" => "#{resource_name}"
+        }
+      end
     end
 
     # Easier than checking for duplication as we go
