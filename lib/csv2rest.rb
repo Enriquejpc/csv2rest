@@ -3,14 +3,12 @@ require 'csvlint/csvw/csv2json/csv2json'
 
 module Csv2rest
   def self.generate csv, schema
-    
     base_path = File.dirname(csv)
-    
     t = Csvlint::Csvw::Csv2Json::Csv2Json.new( csv, {}, schema, { :validate => true } )
     json = JSON.parse(t.result)
-    
+
     h = {}
-    
+
     # Create individual resources
     json["tables"][0]["row"].each do |object|
       obj = object["describes"][0]
@@ -33,10 +31,10 @@ module Csv2rest
         "url" => "#{resource_name}"
       }
     end
-    
+
     # Easier than checking for duplication as we go
     h[""].uniq!
-    
+
     # Done
     h
   end
