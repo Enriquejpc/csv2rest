@@ -1,5 +1,6 @@
 require "csv2rest/version"
 require 'csvlint/csvw/csv2json/csv2json'
+require 'active_support/inflector'
 
 module Csv2rest
   def self.generate csv, schema
@@ -9,15 +10,20 @@ module Csv2rest
     
     h = {}
     
+    resource_name = json["schema:name"].parameterize
+    primary_key = "type" #hardcoded, needs changing
+      
     json["tables"][0]["row"].each do |object|
-      h["/tomato-types/"+object["describes"][0]["type"]] = object["describes"][0]
+      name = object["describes"][0][primary_key].parameterize
+      h["/#{resource_name}/#{name}"] = object["describes"][0]
     end
 
-    h["/tomato-types"] = []
+    h["/#{resource_name}"] = []
     json["tables"][0]["row"].each do |object|
-      h["/tomato-types"] << {
-        "type" => object["describes"][0]["type"],
-        "url" => "/tomato-types/"+object["describes"][0]["type"]
+      name = object["describes"][0][primary_key].parameterize
+      h["/#{resource_name}"] << {
+        primary_key => name,
+        "url" => "/#{resource_name}/#{name}"
       }
     end
 
