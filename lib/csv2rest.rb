@@ -1,20 +1,16 @@
 require "csv2rest/version"
+require 'csvlint/csvw/csv2json/csv2json'
 
 module Csv2rest
-  def self.generate schema
+  def self.generate csv, schema
+    
+    t = Csvlint::Csvw::Csv2Json::Csv2Json.new( csv, {}, schema, { :minimal => true, :validate => true } )
+    json = JSON.parse(t.result)
+    
     h = {}
-    h['/tomato-types/cordon'] = {
-      "type" => "cordon",
-      "also called" => "indeterminate",
-      "description" => "grows very tall"
-    }
-
-    h['/tomato-types/bush'] = {
-      "type" => "bush",
-      "also called" => "determinate",
-      "description" => "does not require pruning"
-    }
-
+    json.each do |object|
+      h["/tomato-types/"+object["type"]] = object
+    end
     h
   end
 end

@@ -6,8 +6,12 @@ describe Csv2rest do
   end
 
   it 'turns a simple CSV into simple JSON' do
-    g = Csv2rest.generate 'tomato-types.csv-metadata.yaml'
-
+    
+    @csv = "file://" + File.join(File.dirname(__FILE__), "fixtures", "tomato-types.csv")
+    @schema = Csvlint::Schema.load_from_json(File.join(File.dirname(__FILE__), "fixtures", "tomato-types.csv-metadata.json"))
+    
+    g = Csv2rest.generate @csv, @schema
+    
     expect(g['/tomato-types/cordon']).to eq (
       {
         "type" => "cordon",
