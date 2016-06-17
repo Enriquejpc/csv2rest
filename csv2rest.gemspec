@@ -6,21 +6,13 @@ require 'csv2rest/version'
 Gem::Specification.new do |spec|
   spec.name          = "csv2rest"
   spec.version       = Csv2rest::VERSION
-  spec.authors       = ["pikesley"]
-  spec.email         = ["github@orgraphone.org"]
+  spec.authors       = ["pikesley", "floppy"]
+  spec.email         = ["ops@theodi.org"]
 
   spec.summary       = %q{Turn CSVs into JSON}
   spec.description   = %q{Turn CSVs into JSON}
-  spec.homepage      = "http://github.com/theodi"
+  spec.homepage      = "http://github.com/theodi/csv2rest"
   spec.license       = "MIT"
-
-  # Prevent pushing this gem to RubyGems.org. To allow pushes either set the 'allowed_push_host'
-  # to allow pushing to a single host or delete this section to allow pushing to any host.
-  if spec.respond_to?(:metadata)
-    spec.metadata['allowed_push_host'] = "TODO: Set to 'http://mygemserver.com'"
-  else
-    raise "RubyGems 2.0 or newer is required to protect against public gem pushes."
-  end
 
   spec.files         = `git ls-files -z`.split("\x0").reject { |f| f.match(%r{^(test|spec|features)/}) }
   spec.bindir        = "exe"
