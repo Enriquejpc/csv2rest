@@ -12,7 +12,7 @@ module Csv2rest
     
     h = {}
     
-    resource_name = json["schema:name"].parameterize
+    resource_name = json["schema:name"].parameterize # NASTINESS
 
     # Resource list
     h["#{resource_name}"] = []
@@ -20,7 +20,7 @@ module Csv2rest
     # Create individual resources
     json["tables"][0]["row"].each do |object|
       obj = object["describes"][0]
-      path = obj["@id"].gsub("#{base_path}/","")
+      path = obj["@id"].gsub("#{base_path}/","") # NASTINESS - replace with base URL somehow
       # Dump metadata we don't want in here
       obj.delete("@id")
       # Store object
