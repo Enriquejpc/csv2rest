@@ -17,5 +17,7 @@ module Csv2rest
       files = Csv2rest.generate Csvlint::Schema.load_from_json(json), base_url: "file:"+File.dirname(json)
       Csv2rest.write_json files, options
     end
+
+    default_task :generate
   end
 end
