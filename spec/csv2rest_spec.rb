@@ -49,5 +49,17 @@ describe Csv2rest do
       )
     end
 
+    it "generates a list of all resources" do
+      g = Csv2rest.generate @csv, @schema
+      
+      expect(g['/']).to eq (
+        [
+          {
+            "resource" => "tomato-types",
+            "url" => "/tomato-types"
+          }
+        ]
+      )
+    end
   end
 end

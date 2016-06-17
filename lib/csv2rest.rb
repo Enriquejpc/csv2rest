@@ -13,11 +13,13 @@ module Csv2rest
     resource_name = json["schema:name"].parameterize
     primary_key = "type" #hardcoded, needs changing
       
+    # Create individual resources
     json["tables"][0]["row"].each do |object|
       name = object["describes"][0][primary_key].parameterize
       h["/#{resource_name}/#{name}"] = object["describes"][0]
     end
 
+    # Create resource index
     h["/#{resource_name}"] = []
     json["tables"][0]["row"].each do |object|
       name = object["describes"][0][primary_key].parameterize
@@ -26,6 +28,14 @@ module Csv2rest
         "url" => "/#{resource_name}/#{name}"
       }
     end
+
+    # Create resource index
+    h["/"] = [
+      {
+        "resource" => resource_name,
+        "url" => "/#{resource_name}"
+      }
+    ]
 
     h
   end
