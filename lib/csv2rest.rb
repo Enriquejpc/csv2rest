@@ -16,24 +16,24 @@ module Csv2rest
     # Create individual resources
     json["tables"][0]["row"].each do |object|
       name = object["describes"][0][primary_key].parameterize
-      h["/#{resource_name}/#{name}"] = object["describes"][0]
+      h["#{resource_name}/#{name}"] = object["describes"][0]
     end
 
     # Create resource index
-    h["/#{resource_name}"] = []
+    h["#{resource_name}"] = []
     json["tables"][0]["row"].each do |object|
       name = object["describes"][0][primary_key].parameterize
-      h["/#{resource_name}"] << {
+      h["#{resource_name}"] << {
         primary_key => name,
-        "url" => "/#{resource_name}/#{name}"
+        "url" => "#{resource_name}/#{name}"
       }
     end
 
     # Create resource index
-    h["/"] = [
+    h[""] = [
       {
         "resource" => resource_name,
-        "url" => "/#{resource_name}"
+        "url" => "#{resource_name}"
       }
     ]
 

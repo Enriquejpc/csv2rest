@@ -15,7 +15,7 @@ describe Csv2rest do
     it "generates individual JSON files" do
       g = Csv2rest.generate @csv, @schema
       
-      expect(g['/tomato-types/cordon']).to eq (
+      expect(g['tomato-types/cordon']).to eq (
         {
           "type" => "cordon",
           "also called" => "indeterminate",
@@ -23,7 +23,7 @@ describe Csv2rest do
         }
       )
 
-      expect(g['/tomato-types/bush']).to eq (
+      expect(g['tomato-types/bush']).to eq (
         {
           "type" => "bush",
           "also called" => "determinate",
@@ -35,15 +35,15 @@ describe Csv2rest do
     it "generates an index for a resource" do
       g = Csv2rest.generate @csv, @schema
       
-      expect(g['/tomato-types']).to eq (
+      expect(g['tomato-types']).to eq (
         [
           {
             "type" => "cordon",
-            "url" => "/tomato-types/cordon"
+            "url" => "tomato-types/cordon"
           },
           {
             "type" => "bush",
-            "url" => "/tomato-types/bush"
+            "url" => "tomato-types/bush"
           },
         ]
       )
@@ -52,11 +52,11 @@ describe Csv2rest do
     it "generates a list of all resources" do
       g = Csv2rest.generate @csv, @schema
       
-      expect(g['/']).to eq (
+      expect(g['']).to eq (
         [
           {
             "resource" => "tomato-types",
-            "url" => "/tomato-types"
+            "url" => "tomato-types"
           }
         ]
       )
