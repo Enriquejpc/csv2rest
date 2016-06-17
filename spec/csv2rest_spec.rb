@@ -32,5 +32,22 @@ describe Csv2rest do
       )
     end
     
+    it "generates an index for a resource" do
+      g = Csv2rest.generate @csv, @schema
+      
+      expect(g['/tomato-types']).to eq (
+        [
+          {
+            "type" => "cordon",
+            "url" => "/tomato-types/cordon"
+          },
+          {
+            "type" => "bush",
+            "url" => "/tomato-types/bush"
+          },
+        ]
+      )
+    end
+
   end
 end
