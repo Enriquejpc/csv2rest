@@ -1,0 +1,62 @@
+{
+  "@context": "http://www.w3.org/ns/csvw",
+  "schema:name": "Tomato types",
+  "schema:description": "Data about tomato types",
+  "schema:creator": {
+    "schema:name": "Sam",
+    "schema:url": "http://sam.pikesley.org",
+    "@type": "schema:Person"
+  },
+  "tables": [
+    {
+      "url": "tomatoes.csv",
+      "tableSchema": {
+        "columns": [
+          {
+            "titles": "common name",
+            "name": "common_name",
+            "schema:description": "Common name of tomato variety",
+            "datatype": "string"
+          },
+          {
+            "titles": "botanical name",
+            "schema:description": "Technical name of tomato variety",
+            "datatype": "string"
+          },
+          {
+            "titles": "type",
+            "name": "tomato_type",
+            "schema:description": "Growing habit of tomato variety"
+          }
+        ],
+        "primaryKey": "common_name"
+      }
+    },
+    {
+      "url": "tomato-types.csv",
+      "tableSchema": {
+        "columns": [
+          {
+            "titles": "type",
+            "name": "type",
+            "schema:description": "Tomato type",
+            "datatype": "string"
+          },
+          {
+            "titles": "also called",
+            "schema:description": "Alternative name for type",
+            "datatype": "string"
+          },
+          {
+            "titles": "description",
+            "schema:description": "Description of type",
+            "datatype": "string"
+          }
+        ]
+      }
+    }
+  ],
+  "dialect": {
+    "encoding": "utf-8"
+  }
+}
