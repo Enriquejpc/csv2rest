@@ -14,10 +14,23 @@ module Csv2rest
                   aliases: '-o',
                   description: 'Where to output files'
     def generate json
-      files = Csv2rest.generate Csvlint::Schema.load_from_json(json), base_url: "file:#{File.dirname(json)}"
-      Csv2rest.write_json files, options
-    end
+      begin
+        files = Csv2rest.generate Csvlint::Schema.load_from_json(json), base_url: "file:#{File.dirname(json)}"
+      rescue Errno::ENOENT => e
+        if e.message.match /No such file or directory/
+          puts "File '#{json}' does not exist"
+          exit 1
+        else
+          puts "Something went wrong"
+          exit 1
+        end
+      end
 
-    default_task :generate
+      if options[:output_dir]
+        Csv2rest.write_json files, options[:output_dir]
+      else
+        pp files
+      end
+    end
   end
 end
