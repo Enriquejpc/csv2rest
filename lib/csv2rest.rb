@@ -16,7 +16,7 @@ module Csv2rest
       obj = object["describes"][0]
       path = obj["@id"].gsub("#{base_path}/","") # NASTINESS - replace with base URL somehow
       resource_name = obj["@type"].gsub("#{base_path}/","") # NASTINESS - replace with base URL somehow
-      # Dump metadata we don't want in here
+      # Dump metadata we don't want in the JSON representation of the object
       obj.delete("@id")
       obj.delete("@type")
       # Store object
