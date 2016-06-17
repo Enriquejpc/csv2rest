@@ -11,6 +11,7 @@
     {
       "url": "tomato-types.csv",
       "tableSchema": {
+        "aboutUrl": "tomato-types/{type}",
         "columns": [
           {
             "titles": "type",

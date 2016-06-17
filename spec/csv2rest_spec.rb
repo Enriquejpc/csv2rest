@@ -8,7 +8,7 @@ describe Csv2rest do
   context 'given a CSV with schema it' do
     
     before :all do
-      @csv = "file://" + File.join(File.dirname(__FILE__), "fixtures", "tomato-types.csv")
+      @csv = "file:" + File.join(File.dirname(__FILE__), "fixtures", "tomato-types.csv")
       @schema = Csvlint::Schema.load_from_json(File.join(File.dirname(__FILE__), "fixtures", "tomato-types.csv-metadata.json"))
     end
     
@@ -38,11 +38,9 @@ describe Csv2rest do
       expect(g['tomato-types']).to eq (
         [
           {
-            "type" => "cordon",
             "url" => "tomato-types/cordon"
           },
           {
-            "type" => "bush",
             "url" => "tomato-types/bush"
           },
         ]
