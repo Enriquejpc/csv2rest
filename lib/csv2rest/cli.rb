@@ -13,8 +13,8 @@ module Csv2rest
     method_option :output_dir,
                   aliases: '-o',
                   description: 'Where to output files'
-    def generate csv, json
-      files = Csv2rest.generate "file:"+csv, Csvlint::Schema.load_from_json(json)
+    def generate json
+      files = Csv2rest.generate Csvlint::Schema.load_from_json(json), base_url: "file:"+File.dirname(json)
       Csv2rest.write_json files, options
     end
   end

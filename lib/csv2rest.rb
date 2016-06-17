@@ -6,9 +6,10 @@ require 'active_support/inflector'
 require 'uri'
   
 module Csv2rest
-  def self.generate csv, schema
-    base_path = File.dirname(csv)
-    t = Csvlint::Csvw::Csv2Json::Csv2Json.new( csv, {}, schema, { :validate => true } )
+  def self.generate schema, options = {}
+    base_url = options[:base_url]
+    
+    t = Csvlint::Csvw::Csv2Json::Csv2Json.new( "", {}, schema, { :validate => true } )
     json = JSON.parse(t.result)
 
     h = {}
@@ -17,8 +18,8 @@ module Csv2rest
     json["tables"].each do |table|
       table["row"].each do |object|
         obj = object["describes"][0]
-        path = obj["@id"].gsub("#{base_path}/","") # NASTINESS - replace with base URL somehow
-        resource_name = obj["@type"].gsub("#{base_path}/","") # NASTINESS - replace with base URL somehow
+        path = obj["@id"].gsub("#{base_url}/","") # NASTINESS - replace with base URL somehow
+        resource_name = obj["@type"].gsub("#{base_url}/","") # NASTINESS - replace with base URL somehow
         # parameterize path
         path = path.split('/').map{|x| URI.decode(x).parameterize}.join('/')
         # Dump metadata we don't want in the JSON representation of the object
