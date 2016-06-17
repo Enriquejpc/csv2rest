@@ -46,4 +46,21 @@ module Csv2rest
     # Done
     h
   end
+
+  def self.write_json files, options
+    files.each do |name, content|
+      # Index
+      name = "index" if name == ""
+      # Filename
+      filename = name + ".json"
+      FileUtils.mkdir_p options[:output_dir]
+      Dir.chdir(options[:output_dir]) do
+        # Create directories
+        FileUtils.mkdir_p File.dirname(filename)
+        # Write
+        File.write(filename, JSON.pretty_generate(content))
+      end
+    end
+  end
+
 end

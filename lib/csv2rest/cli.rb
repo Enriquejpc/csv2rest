@@ -15,19 +15,7 @@ module Csv2rest
                   description: 'Where to output files'
     def generate csv, json
       files = Csv2rest.generate "file:"+csv, Csvlint::Schema.load_from_json(json)
-      files.each do |name, content|
-        # Index
-        name = "index" if name == ""
-        # Filename
-        filename = name + ".json"
-        FileUtils.mkdir_p options[:output_dir]
-        Dir.chdir(options[:output_dir]) do
-          # Create directories
-          FileUtils.mkdir_p File.dirname(filename)
-          # Write
-          File.write(filename, JSON.pretty_generate(content))
-        end
-      end
+      Csv2rest.write_json files, options
     end
   end
 end
