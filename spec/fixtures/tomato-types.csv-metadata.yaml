@@ -1,0 +1,22 @@
+---
+"@context": http://www.w3.org/ns/csvw
+schema:name: Tomato types
+schema:description: Data about tomato types
+schema:creator:
+  schema:name: Sam
+  schema:url: http://sam.pikesley.org
+  "@type": schema:Person
+tables:
+- url: tomato-types.csv
+  tableSchema:
+    columns:
+    - titles: type
+      name: type
+      schema:description: Tomato type
+      datatype: string
+    - titles: also called
+      schema:description: Alternative name for type
+      datatype: string
+    - titles: description
+      schema:description: Description of type
+      datatype: string
