@@ -1,6 +1,5 @@
 require "csv2rest/version"
 require 'csvlint/csvw/csv2json/csv2json'
-require 'active_support/inflector'
 
 module Csv2rest
   def self.generate csv, schema
@@ -12,33 +11,33 @@ module Csv2rest
     
     h = {}
     
-    resource_name = json["schema:name"].parameterize # NASTINESS
-
-    # Resource list
-    h["#{resource_name}"] = []
-      
     # Create individual resources
     json["tables"][0]["row"].each do |object|
       obj = object["describes"][0]
       path = obj["@id"].gsub("#{base_path}/","") # NASTINESS - replace with base URL somehow
+      resource_name = obj["@type"].gsub("#{base_path}/","") # NASTINESS - replace with base URL somehow
       # Dump metadata we don't want in here
       obj.delete("@id")
+      obj.delete("@type")
       # Store object
       h[path] = obj
       # Add to object list
+      h["#{resource_name}"] ||= []
       h["#{resource_name}"] << {
         "url" => path
       }
-    end
-    
-    # Create resource list
-    h[""] = [
-      {
+      # Add resource to root
+      h[""] ||= []
+      h[""] << {
         "resource" => resource_name,
         "url" => "#{resource_name}"
       }
-    ]
+    end
     
+    # Easier than checking for duplication as we go
+    h[""].uniq!
+    
+    # Done
     h
   end
 end

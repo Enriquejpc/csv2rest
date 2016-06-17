@@ -28,6 +28,11 @@
             "titles": "description",
             "schema:description": "Description of type",
             "datatype": "string"
+          },
+          {
+            "virtual": true,
+            "propertyUrl": "rdf:type",
+            "valueUrl": "tomato-types"
           }
         ]
       }
