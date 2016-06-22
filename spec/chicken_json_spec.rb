@@ -40,11 +40,13 @@ describe Csv2rest do
           "HeaderID"=>6782,
           "AppNo"=>5011,
           "AbattoirName"=>"2 SISTERS FOOD GROUP LTD",
+          "AmountDescription" => "Whole",
           "AnimalSource"=>"Producer: 24/655/0001 Arden Old Urn Farm",
           "SpeciesCategory"=>"Poultry",
           "Species"=>"Broilers",
           "HerdMark"=>"689268",
           "InspectionDate"=>"2016-02-15",
+          "InspectionType" => "Conditions",
           "ArrivalDate"=>"2016-02-15",
           "SlaughterFromDate"=>"2016-02-15",
           "SlaughterToDate"=>"2016-02-15",
@@ -63,11 +65,37 @@ describe Csv2rest do
           "Poultry_HouseMortality"=>1.97,
           "Poultry_CumulativeMortality"=>3.42,
           "@type"=>"/inspections",
-          "conditions" => [
+          "data" => [
+            {
+              "Condition"=>"Ascites/Oedema",
+              "Amount"=>1.0
+            },
+            {
+              "Condition"=>"Dermatitis",
+              "Amount"=>1.0
+            },
+            {
+              "Condition"=>"Perihepatitis/peritonitis",
+              "Amount"=>1.0,
+            },
+            {
+              "Condition"=>"Abnormal colour/fevered",
+              "Amount"=>3.0
+            },
+            {
+              "Condition"=>"Dead on Arrival/Death in the lairage (DOA)",
+              "Amount"=>3.0
+            },
+            {
+              "Condition"=>"Emaciation",
+              "Amount"=>3.0
+            },
+            {
+              "Condition"=>"Machine Damage",
+              "Amount"=>3.0
+            },
             {
               "Condition"=>"Cellulitis",
-              "InspectionType"=>"Conditions",
-              "AmountDescription"=>"Whole",
               "Amount"=>6.0
             }
           ]

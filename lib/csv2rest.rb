@@ -26,7 +26,10 @@ module Csv2rest
 
         # Store object at a nice path for developers
         path = fix_path obj
-        h[path] = obj
+        h[path] ||= {
+          "data" => []
+        }
+        h[path]["data"] << obj
 
         # Add to resource index
         resource_index_path = path.split('/').slice(0..-2).join('/')
@@ -43,6 +46,25 @@ module Csv2rest
           '@type' => obj['@type'],
           'url' => resource_index_path
         }
+      end
+    end
+
+    # Pass over and normalise
+    h.each do |path, object|
+      if object.is_a?(Hash) && object["data"]
+        keys = object["data"].first.keys
+        keys.each do |key|
+          unique_values = object["data"].map{|x| x[key]}.uniq
+          if unique_values.count == 1
+            object[key] = unique_values.first
+            # Clean out
+            object["data"].each do |obj|
+              obj.delete(key)
+            end
+            object["data"].delete_if{|x| x.empty?}
+            object.delete("data") if object["data"].empty?
+          end
+        end
       end
     end
 
