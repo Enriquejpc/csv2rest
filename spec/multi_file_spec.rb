@@ -14,6 +14,8 @@ describe Csv2rest do
 
       expect(g['tomatoes/black-cherry']).to eq (
         {
+          "@id" => "tomatoes/black%20cherry",
+          "@type" => "tomatoes",
           'common_name' => 'black cherry',
           'botanical name' => 'Lycopersicon esculentum',
           'tomato_type' => 'cordon'

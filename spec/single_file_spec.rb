@@ -17,6 +17,8 @@ describe Csv2rest do
 
       expect(g['tomato-types/cordon']).to eq (
         {
+          '@id' => "tomato-types/cordon",
+          '@type' => "tomato-types",
           'type' => 'cordon',
           'also called' => 'indeterminate',
           'description' => 'grows very tall'
@@ -25,6 +27,8 @@ describe Csv2rest do
 
       expect(g['tomato-types/bush']).to eq (
         {
+          '@id' => "tomato-types/bush",
+          '@type' => "tomato-types",
           'type' => 'bush',
           'also called' => 'determinate',
           'description' => 'does not require pruning'

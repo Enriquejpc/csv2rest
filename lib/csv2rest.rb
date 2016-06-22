@@ -18,25 +18,22 @@ module Csv2rest
     json['tables'].each do |table|
       table['row'].each do |object|
         obj = object['describes'][0]
-        path = obj['@id'].gsub("#{base_url}/",'') # NASTINESS - replace with base URL somehow
-        resource_name = obj['@type'].gsub("#{base_url}/",'') # NASTINESS - replace with base URL somehow
-        # parameterize path
-        path = path.split('/').map{|x| URI.decode(x).parameterize}.join('/')
-        # Dump metadata we don't want in the JSON representation of the object
-        obj.delete('@id')
-        obj.delete('@type')
+        # Hacky things for removing the base URL when generating file paths and IDs
+        obj['@id'].gsub!("#{base_url}/",'')
+        obj['@type'].gsub!("#{base_url}/",'')
         # Store object
+        path = obj['@id'].split('/').map{|x| URI.decode(x).parameterize}.join('/')
         h[path] = obj
         # Add to object list
-        h["#{resource_name}"] ||= []
-        h["#{resource_name}"] << {
+        h[obj['@type']] ||= []
+        h[obj['@type']] << {
           'url' => path
         }
         # Add resource to root
         h[''] ||= []
         h[''] << {
-          'resource' => resource_name,
-          'url' => "#{resource_name}"
+          'resource' => obj['@type'],
+          'url' => obj['@type']
         }
       end
     end
