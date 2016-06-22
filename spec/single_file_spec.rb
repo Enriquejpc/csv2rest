@@ -8,12 +8,12 @@ describe Csv2rest do
   context 'given a CSV with schema it' do
 
     before :all do
-      @base_url = File.join(File.dirname(__FILE__), 'fixtures')
-      @schema = Csvlint::Schema.load_from_json(File.join(@base_url, 'tomato-types.csv-metadata.json'))
+      @fixtures_dir = File.join(File.dirname(__FILE__), 'fixtures')
+      @schema = Csvlint::Schema.load_from_json(File.join(@fixtures_dir, 'tomato-types.csv-metadata.json'))
     end
 
     it 'generates individual JSON files' do
-      g = Csv2rest.generate @schema, base_url: 'file:'+@base_url
+      g = Csv2rest.generate @schema, base_url: 'file:'+@fixtures_dir
 
       expect(g['tomato-types/cordon']).to eq (
         {
@@ -33,7 +33,7 @@ describe Csv2rest do
     end
 
     it 'generates an index for a resource' do
-      g = Csv2rest.generate @schema, base_url: 'file:'+@base_url
+      g = Csv2rest.generate @schema, base_url: 'file:'+@fixtures_dir
 
       expect(g['tomato-types']).to eq (
         [
@@ -48,7 +48,7 @@ describe Csv2rest do
     end
 
     it 'generates a list of all resources' do
-      g = Csv2rest.generate @schema, base_url: 'file:'+@base_url
+      g = Csv2rest.generate @schema, base_url: 'file:'+@fixtures_dir
 
       expect(g['']).to eq (
         [

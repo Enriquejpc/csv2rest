@@ -5,12 +5,12 @@ describe Csv2rest do
   context 'given a CSV with schema it' do
 
     before :all do
-      @base_url = File.join(File.dirname(__FILE__), 'fixtures')
-      @schema = Csvlint::Schema.load_from_json(File.join(@base_url, 'tomatoes.csv-metadata.json'))
+      @fixtures_dir = File.join(File.dirname(__FILE__), 'fixtures')
+      @schema = Csvlint::Schema.load_from_json(File.join(@fixtures_dir, 'tomatoes.csv-metadata.json'))
     end
 
     it 'parameterizes entity names' do
-      g = Csv2rest.generate @schema, base_url: 'file:'+@base_url
+      g = Csv2rest.generate @schema, base_url: 'file:'+@fixtures_dir
 
       expect(g['tomatoes/black-cherry']).to eq (
         {
