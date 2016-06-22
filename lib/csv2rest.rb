@@ -35,6 +35,7 @@ module Csv2rest
           '@id' => obj['@id'],
           'url' => path
         }
+        h[resource_index_path].uniq!
 
         # Add resource to root
         h['/'] ||= []
