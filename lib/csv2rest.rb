@@ -7,9 +7,8 @@ require 'uri'
 
 module Csv2rest
   def self.generate schema, options = {}
-    base_url = options[:base_url]
 
-    t = Csvlint::Csvw::Csv2Json::Csv2Json.new( '', {}, schema, { :validate => true } )
+    t = Csvlint::Csvw::Csv2Json::Csv2Json.new '', {}, schema, { validate: true }
     json = JSON.parse(t.result)
 
     h = {}
@@ -18,34 +17,45 @@ module Csv2rest
     json['tables'].each do |table|
       table['row'].each do |object|
         obj = object['describes'][0]
-        path = obj['@id'].gsub("#{base_url}/",'') # NASTINESS - replace with base URL somehow
-        resource_name = obj['@type'].gsub("#{base_url}/",'') # NASTINESS - replace with base URL somehow
-        # parameterize path
-        path = path.split('/').map{|x| URI.decode(x).parameterize}.join('/')
-        # Dump metadata we don't want in the JSON representation of the object
-        obj.delete('@id')
-        obj.delete('@type')
-        # Store object
+
+        # Hacky things for removing the base URL when generating file paths and IDs
+        if options[:base_url]
+          obj['@id'].gsub!(options[:base_url],'')
+          obj['@type'].gsub!(options[:base_url],'')
+        end
+
+        # Store object at a nice path for developers
+        path = fix_path obj
         h[path] = obj
-        # Add to object list
-        h["#{resource_name}"] ||= []
-        h["#{resource_name}"] << {
+
+        # Add to resource index
+        resource_index_path = path.split('/').slice(0..-2).join('/')
+        h[resource_index_path] ||= []
+        h[resource_index_path] << {
+          '@id' => obj['@id'],
           'url' => path
         }
+
         # Add resource to root
-        h[''] ||= []
-        h[''] << {
-          'resource' => resource_name,
-          'url' => "#{resource_name}"
+        h['/'] ||= []
+        h['/'] << {
+          '@type' => obj['@type'],
+          'url' => resource_index_path
         }
       end
     end
 
     # Easier than checking for duplication as we go
-    h[''].uniq!
+    h['/'].uniq!
 
     # Done
     h
+  end
+
+  def self.fix_path obj
+    URI.parse(obj['@id']).path.split('/').map do |x|
+      URI.decode(x).parameterize
+    end.join('/')
   end
 
   def self.write_json files, output_dir
