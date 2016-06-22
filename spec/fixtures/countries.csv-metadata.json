@@ -1,0 +1,50 @@
+{
+  "@context": "http://www.w3.org/ns/csvw",
+  "url": "countries.csv",
+  "tableSchema": {
+    "aboutUrl": "http://example.org/country/{code}",
+    "columns": [{
+      "titles": "country",
+      "name": "code",
+      "suppressOutput": true
+    },{
+      "titles": "country group",
+      "suppressOutput": true
+    },{
+      "titles": "name (en)",
+      "lang": "en",
+      "propertyUrl": "schema:name"
+    },{
+      "titles": "name (fr)",
+      "lang": "fr",
+      "propertyUrl": "schema:name"
+    },{
+      "titles": "name (de)",
+      "lang": "de",
+      "propertyUrl": "schema:name"
+    },{
+      "titles": "latitude",
+      "datatype": "number",
+      "aboutUrl": "http://example.org/country/{code}#geo",
+      "propertyUrl": "schema:latitude"
+    },{
+      "titles": "longitude",
+      "datatype": "number",
+      "aboutUrl": "http://example.org/country/{code}#geo",
+      "propertyUrl": "schema:longitude"
+    },{
+      "virtual": true,
+      "propertyUrl": "rdf:type",
+      "valueUrl": "schema:Country"
+    },{
+      "virtual": true,
+      "propertyUrl": "schema:geo",
+      "valueUrl": "http://example.org/country/{code}#geo"
+    },{
+      "virtual": true,
+      "aboutUrl": "http://example.org/country/{code}#geo",
+      "propertyUrl": "rdf:type",
+      "valueUrl": "schema:GeoCoordinates"
+    }]
+  }
+}
