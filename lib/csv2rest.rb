@@ -26,9 +26,10 @@ module Csv2rest
         uri = URI.parse(obj['@id'])
         path = uri.path.split('/').map{|x| URI.decode(x).parameterize}.join('/')
         h[path] = obj
-        # Add to object list
-        h[obj['@type']] ||= []
-        h[obj['@type']] << {
+        # Add to resource index
+        resource_index_path = obj['@type'] # Needs making into a sensible path
+        h[resource_index_path] ||= []
+        h[resource_index_path] << {
           '@id' => obj['@id'],
           'url' => path
         }
@@ -36,7 +37,7 @@ module Csv2rest
         h['/'] ||= []
         h['/'] << {
           '@type' => obj['@type'],
-          'url' => obj['@type']
+          'url' => resource_index_path
         }
       end
     end
