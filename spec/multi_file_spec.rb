@@ -12,19 +12,19 @@ describe Csv2rest do
     it 'parameterizes entity names' do
       g = Csv2rest.generate @schema, base_url: 'file:'+@fixtures_dir
 
-      expect(g['tomatoes/black-cherry']).to eq (
+      expect(g['/tomatoes/black-cherry']).to eq (
         {
-          "@id" => "tomatoes/black%20cherry",
-          "@type" => "tomatoes",
+          "@id" => "/tomatoes/black%20cherry",
+          "@type" => "/tomatoes",
           'common_name' => 'black cherry',
           'botanical name' => 'Lycopersicon esculentum',
           'tomato_type' => 'cordon'
         }
       )
 
-      expect(g['tomatoes']).to include(
+      expect(g['/tomatoes']).to include(
         {
-          'url' => 'tomatoes/black-cherry'
+          'url' => '/tomatoes/black-cherry'
         }
       )
     end

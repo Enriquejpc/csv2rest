@@ -15,20 +15,20 @@ describe Csv2rest do
     it 'generates individual JSON files' do
       g = Csv2rest.generate @schema, base_url: 'file:'+@fixtures_dir
 
-      expect(g['tomato-types/cordon']).to eq (
+      expect(g['/tomato-types/cordon']).to eq (
         {
-          '@id' => "tomato-types/cordon",
-          '@type' => "tomato-types",
+          '@id' => "/tomato-types/cordon",
+          '@type' => "/tomato-types",
           'type' => 'cordon',
           'also called' => 'indeterminate',
           'description' => 'grows very tall'
         }
       )
 
-      expect(g['tomato-types/bush']).to eq (
+      expect(g['/tomato-types/bush']).to eq (
         {
-          '@id' => "tomato-types/bush",
-          '@type' => "tomato-types",
+          '@id' => "/tomato-types/bush",
+          '@type' => "/tomato-types",
           'type' => 'bush',
           'also called' => 'determinate',
           'description' => 'does not require pruning'
@@ -39,13 +39,13 @@ describe Csv2rest do
     it 'generates an index for a resource' do
       g = Csv2rest.generate @schema, base_url: 'file:'+@fixtures_dir
 
-      expect(g['tomato-types']).to eq (
+      expect(g['/tomato-types']).to eq (
         [
           {
-            'url' => 'tomato-types/cordon'
+            'url' => '/tomato-types/cordon'
           },
           {
-            'url' => 'tomato-types/bush'
+            'url' => '/tomato-types/bush'
           },
         ]
       )
@@ -54,11 +54,11 @@ describe Csv2rest do
     it 'generates a list of all resources' do
       g = Csv2rest.generate @schema, base_url: 'file:'+@fixtures_dir
 
-      expect(g['']).to eq (
+      expect(g['/']).to eq (
         [
           {
-            'resource' => 'tomato-types',
-            'url' => 'tomato-types'
+            'resource' => '/tomato-types',
+            'url' => '/tomato-types'
           }
         ]
       )

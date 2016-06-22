@@ -7,7 +7,6 @@ require 'uri'
 
 module Csv2rest
   def self.generate schema, options = {}
-    base_url = options[:base_url]
 
     t = Csvlint::Csvw::Csv2Json::Csv2Json.new( '', {}, schema, { :validate => true } )
     json = JSON.parse(t.result)
@@ -19,10 +18,13 @@ module Csv2rest
       table['row'].each do |object|
         obj = object['describes'][0]
         # Hacky things for removing the base URL when generating file paths and IDs
-        obj['@id'].gsub!("#{base_url}/",'')
-        obj['@type'].gsub!("#{base_url}/",'')
-        # Store object
-        path = obj['@id'].split('/').map{|x| URI.decode(x).parameterize}.join('/')
+        if options[:base_url]
+          obj['@id'].gsub!(options[:base_url],'')
+          obj['@type'].gsub!(options[:base_url],'')
+        end
+        # Store object at a nice path for developers
+        uri = URI.parse(obj['@id'])
+        path = uri.path.split('/').map{|x| URI.decode(x).parameterize}.join('/')
         h[path] = obj
         # Add to object list
         h[obj['@type']] ||= []
@@ -30,8 +32,8 @@ module Csv2rest
           'url' => path
         }
         # Add resource to root
-        h[''] ||= []
-        h[''] << {
+        h['/'] ||= []
+        h['/'] << {
           'resource' => obj['@type'],
           'url' => obj['@type']
         }
@@ -39,7 +41,7 @@ module Csv2rest
     end
 
     # Easier than checking for duplication as we go
-    h[''].uniq!
+    h['/'].uniq!
 
     # Done
     h

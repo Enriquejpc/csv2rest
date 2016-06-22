@@ -6,9 +6,10 @@ describe Csv2rest do
     end
 
     it 'generates nested JSON output' do
-      g = Csv2rest.generate @schema, base_url: 'file:'+@fixtures_dir
+      # Don't need a base URL passed in here because we don't need to remove it
+      g = Csv2rest.generate @schema
 
-      expect(g[""]).to eq (
+      expect(g["/"]).to eq (
         [
           {
            "resource"=>"schema:Country",
@@ -19,13 +20,13 @@ describe Csv2rest do
 
       expect(g["schema:Country"]).to eq (
         [
-          {"url"=>"http//example-org/country/at"},
-          {"url"=>"http//example-org/country/be"},
-          {"url"=>"http//example-org/country/bg"}
+          {"url"=>"/country/at"},
+          {"url"=>"/country/be"},
+          {"url"=>"/country/bg"}
         ]
       )
 
-      expect(g['http//example-org/country/at']).to eq (
+      expect(g['/country/at']).to eq (
         {
           "@id" => "http://example.org/country/at",
           "@type" => "schema:Country",
@@ -39,7 +40,7 @@ describe Csv2rest do
         }
       )
       
-      expect(g['http//example-org/country/be']).to eq (
+      expect(g['/country/be']).to eq (
         {
           "@id" => "http://example.org/country/be",
           "@type" => "schema:Country",
