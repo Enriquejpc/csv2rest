@@ -13,12 +13,12 @@ describe Csv2rest do
         [
           {
            "@type"=>"schema:Country",
-           "url"=>"schema:Country"
+           "url"=>"/country"
           }
         ]
       )
 
-      expect(g["schema:Country"]).to eq (
+      expect(g["/country"]).to eq (
         [
           {
             "@id" => "http://example.org/country/at",
