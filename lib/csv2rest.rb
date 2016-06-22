@@ -52,15 +52,19 @@ module Csv2rest
     # Pass over and normalise
     h.each do |path, object|
       if object.is_a?(Hash) && object["data"]
+        # Get each key in the first data object (they will all be the same)
         keys = object["data"].first.keys
+        # For each key, see if the values are all the same across the data array
         keys.each do |key|
           unique_values = object["data"].map{|x| x[key]}.uniq
           if unique_values.count == 1
+            # If they are, store the value in the root rather than the data array
             object[key] = unique_values.first
-            # Clean out
+            # And then clean the values out of the data array
             object["data"].each do |obj|
               obj.delete(key)
             end
+            # Remove empty data objects and the entire array if it's not needed
             object["data"].delete_if{|x| x.empty?}
             object.delete("data") if object["data"].empty?
           end
@@ -84,7 +88,7 @@ module Csv2rest
   def self.write_json files, output_dir
     files.each do |name, content|
       # Index
-      name = 'index' if name == ''
+      name = 'index' if name == '/'
       # Filename
       filename = name + '.json'
       FileUtils.mkdir_p output_dir
