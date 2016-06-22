@@ -42,9 +42,11 @@ describe Csv2rest do
       expect(g['/tomato-types']).to eq (
         [
           {
+            '@id' => "/tomato-types/cordon",
             'url' => '/tomato-types/cordon'
           },
           {
+            '@id' => "/tomato-types/bush",
             'url' => '/tomato-types/bush'
           },
         ]
@@ -57,7 +59,7 @@ describe Csv2rest do
       expect(g['/']).to eq (
         [
           {
-            'resource' => '/tomato-types',
+            '@type' => '/tomato-types',
             'url' => '/tomato-types'
           }
         ]

@@ -29,12 +29,13 @@ module Csv2rest
         # Add to object list
         h[obj['@type']] ||= []
         h[obj['@type']] << {
+          '@id' => obj['@id'],
           'url' => path
         }
         # Add resource to root
         h['/'] ||= []
         h['/'] << {
-          'resource' => obj['@type'],
+          '@type' => obj['@type'],
           'url' => obj['@type']
         }
       end

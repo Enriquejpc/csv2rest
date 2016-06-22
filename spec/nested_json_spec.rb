@@ -12,7 +12,7 @@ describe Csv2rest do
       expect(g["/"]).to eq (
         [
           {
-           "resource"=>"schema:Country",
+           "@type"=>"schema:Country",
            "url"=>"schema:Country"
           }
         ]
@@ -20,9 +20,18 @@ describe Csv2rest do
 
       expect(g["schema:Country"]).to eq (
         [
-          {"url"=>"/country/at"},
-          {"url"=>"/country/be"},
-          {"url"=>"/country/bg"}
+          {
+            "@id" => "http://example.org/country/at",
+            "url"=>"/country/at"
+          },
+          {
+            "@id" => "http://example.org/country/be",
+            "url"=>"/country/be"
+          },
+          {
+            "@id" => "http://example.org/country/bg",
+            "url"=>"/country/bg"
+          }
         ]
       )
 

@@ -24,6 +24,7 @@ describe Csv2rest do
 
       expect(g['/tomatoes']).to include(
         {
+          '@id' => "/tomatoes/black%20cherry",
           'url' => '/tomatoes/black-cherry'
         }
       )
