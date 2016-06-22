@@ -1,0 +1,175 @@
+{
+  "@context": "http://www.w3.org/ns/csvw",
+  "dialect": {
+    "encoding": "utf-8"
+  },
+  "tables": [
+    {
+      "url": "chickens.csv",
+      "tableSchema": {
+        "aboutUrl": "inspections/{HeaderID}",
+        "columns": [
+          {
+            "name": "HeaderID",
+            "titles": "HeaderID",
+            "datatype": "integer",
+            "required": true
+          },
+          {
+            "name": "AppNo",
+            "titles": "AppNo",
+            "datatype": "integer",
+            "required": true
+          },
+          {
+            "name": "AbattoirName",
+            "titles": "AbattoirName",
+            "required": true
+          },
+          {
+            "name": "AnimalSource",
+            "titles": "AnimalSource",
+            "required": true,
+            "datatype": {
+              "base": "string",
+              "format": "Producer: [0-9]{2,3}\/[0-9]{3}\/[0-9]{2,4}(\/[0-9]{2})? .+"
+            }
+          },
+          {
+            "name": "SpeciesCategory",
+            "titles": "SpeciesCategory",
+            "datatype": {
+              "base": "string",
+              "format": "Broilers|Ducks|Hens|Poultry|Turkeys"
+            }
+          },
+          {
+            "name": "Species",
+            "titles": "Species"
+          },
+          {
+            "name": "HerdMark",
+            "titles": "HerdMark"
+          },
+          {
+            "name": "InspectionDate",
+            "titles": "InspectionDate",
+            "datatype": "date"
+          },
+          {
+            "name": "ArrivalDate",
+            "titles": "ArrivalDate",
+            "datatype": "date"
+          },
+          {
+            "name": "SlaughterFromDate",
+            "titles": "SlaughterFromDate",
+            "datatype": "date"
+          },
+          {
+            "name": "SlaughterToDate",
+            "titles": "SlaughterToDate",
+            "datatype": "date"
+          },
+          {
+            "name": "AnimalsReported",
+            "titles": "AnimalsReported",
+            "datatype": "integer"
+          },
+          {
+            "name": "AnimalsPresented",
+            "titles": "AnimalsPresented",
+            "datatype": "integer"
+          },
+          {
+            "name": "AnimalsSlaughtered",
+            "titles": "AnimalsSlaughtered",
+            "datatype": "integer"
+          },
+          {
+            "name": "Status",
+            "titles": "Status"
+          },
+          {
+            "name": "StatusDate",
+            "titles": "StatusDate",
+            "datatype": {
+              "base": "datetime",
+              "format": "dd/MM/yyyy HH:mm"
+            }
+          },
+          {
+            "name": "Poultry_House",
+            "titles": "Poultry_House"
+          },
+          {
+            "name": "Poultry_NoInHouse",
+            "titles": "Poultry_NoInHouse",
+            "datatype": "integer"
+          },
+          {
+            "name": "Poultry_ProductionSystem",
+            "titles": "Poultry_ProductionSystem",
+            "datatype": {
+              "base": "string",
+              "format": "Free Range|Intensive Indoor|Organic|Other"
+            }
+          },
+          {
+            "name": "Broiler_StockingDensity",
+            "titles": "Broiler_StockingDensity"
+          },
+          {
+            "name": "Broiler_Breed",
+            "titles": "Broiler_Breed"
+          },
+          {
+            "name": "Broiler_Line",
+            "titles": "Broiler_Line"
+          },
+          {
+            "name": "Poultry_Age",
+            "titles": "Poultry_Age",
+            "datatype": "integer"
+          },
+          {
+            "name": "Poultry_HouseMortality",
+            "titles": "Poultry_HouseMortality",
+            "datatype": "number"
+          },
+          {
+            "name": "Poultry_CumulativeMortality",
+            "titles": "Poultry_CumulativeMortality",
+            "datatype": "number"
+          },
+          {
+            "name": "Condition",
+            "titles": "Condition"
+          },
+          {
+            "name": "InspectionType",
+            "titles": "InspectionType"
+          },
+          {
+            "name": "AmountDescription",
+            "titles": "AmountDescription"
+          },
+          {
+            "name": "Amount",
+            "titles": "Amount",
+            "datatype": "number"
+          },
+          {
+            "name": "Comments",
+            "titles": "Comments"
+          },
+          {
+            "virtual": true,
+            "propertyUrl": "rdf:type",
+            "valueUrl": "inspections"
+          }
+        ]
+      }
+    }
+  ]
+}
