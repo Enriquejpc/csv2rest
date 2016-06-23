@@ -87,8 +87,10 @@ module Csv2rest
 
   def self.write_json files, output_dir
     files.each do |name, content|
+      # Strip leading slash
+      name = name[1..-1]
       # Index
-      name = 'index' if name == '/'
+      name = 'index' if name == ''
       # Filename
       filename = name + '.json'
       FileUtils.mkdir_p output_dir
